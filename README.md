@@ -25,13 +25,25 @@ GPU机型 T4 显卡
 ### 1.安装GPU驱动：
 https://www.nvidia.com/Download/Find.aspx
 找到 T4 对应的驱动12.0
+
 ### 2.安装 CUDA：
 https://developer.nvidia.com/cuda-downloads
+
 然后再下载 cudnn, 找到和 cuda配套的
+
 https://developer.nvidia.com/rdp/cudnn-download
+
+无注册账号的可从百度云下载：
+cuda11.x版本：
+链接：https://pan.baidu.com/s/15_tFzQetWhhOZjKRS9EVuQ?pwd=CD11
+提取码：CD11
+cuda12.x版本：
+链接：https://pan.baidu.com/s/1yO3ffHufu5tMR-1ViK9EHQ?pwd=CD12
+
 ### 3.安装 anaconda，python环境
 https://www.anaconda.com/blog/individual-edition-2021-05
 安装  Anaconda For Windows Server 2022
+
 ### 4. 安装 pytorch
 (注意不要使用清华源，默认是CPU版本)：
 https://pytorch.org/get-started/locally/
@@ -42,7 +54,9 @@ conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvi
 从 GitHub 下载项目程序包，https://github.com/THUDM/ChatGLM-6B
 下载后解压到本地目录，如 C:\ChatGLM\ChatGLM-6B-main
 下载模型包 chatglm，https://huggingface.co/THUDM/chatglm-6b/tree/main
-huggingface 里不能打包下载，只能一个个下载（因为没有找到打包下载的地方），下载到 C:\ChatGLM\ChatGLM-6B-main\chatglm-6b。
+
+huggingface 里不能打包下载，只能一个个下载（因为没有找到打包下载的地方），下载到 C:\chatglm-6b。
+
 8 个模型文件（1G 以上的那 8 个）不用在 huggingface 里下载，从这里下载：https://cloud.tsinghua.edu.cn/d/fb9f16d6dc8f482596c2/
 
 

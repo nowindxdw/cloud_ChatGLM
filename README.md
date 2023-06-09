@@ -65,13 +65,14 @@ python web_demo.py
 
 
 
-基于 P-Tuning 微调 ChatGLM-6B
+## 基于 P-Tuning 微调 ChatGLM-6B
 ChatGLM-6B 环境已经有了，接下来开始模型微调，这里我们使用官方的 P-Tuning v2 对 ChatGLM-6B 模型进行参数微调，P-Tuning v2 将需要微调的参数量减少到原来的 0.1%，再通过模型量化、Gradient Checkpoint 等方法，最低只需要 7GB 显存即可运行。
 
 下载 GIT：
 Git - Downloading Package (git-scm.com)
 安装依赖
 bash复制代码# 运行微调需要 4.27.1 版本的 transformers
+
 pip install rouge_chinese nltk jieba datasets  -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 
@@ -80,7 +81,9 @@ pip install rouge_chinese nltk jieba datasets  -i https://pypi.tuna.tsinghua.edu
 
 参数调整
 修改 train.sh 和 evaluate.sh 中的 train_file、validation_file 和 test_file 为你自己的 JSON 格式数据集路径，并将 prompt_column 和 response_column 改为 JSON 文件中输入文本和输出文本对应的 KEY。可能还需要增大 max_source_length 和 max_target_length 来匹配你自己的数据集中的最大输入输出长度。并将模型路径 THUDM/chatglm-6b 改为你本地的模型路径。
-1、train.sh 文件修改
+
+### 1、train.sh 文件修改
+
 PRE_SEQ_LEN=128
 LR=2e-2
 
@@ -108,7 +111,8 @@ CUDA_VISIBLE_DEVICES=0 python main.py \
 
 
 train.sh 中的 PRE_SEQ_LEN 和 LR 分别是 soft prompt 长度和训练的学习率，可以进行调节以取得最佳的效果。P-Tuning-v2 方法会冻结全部的模型参数，可通过调整 quantization_bit 来被原始模型的量化等级，不加此选项则为 FP16 精度加载。
-2、evaluate.sh 文件修改
+### 2、evaluate.sh 文件修改
+
 PRE_SEQ_LEN=32
 CHECKPOINT=adgen-chatglm-6b-pt-32-2e-2
 STEP=3000
@@ -132,15 +136,16 @@ CUDA_VISIBLE_DEVICES=0 python3 main.py \
 
 
 CHECKPOINT 实际就是 train.sh 中的 output_dir。
-训练
+### 3 训练
 bash train.sh
-推理
+### 4 推理
 bash evaluate.sh
 
+### 5部署微调后的模型
 
-部署微调后的模型
 这里我们先修改 web_demo.sh 的内容以符合实际情况，将 pre_seq_len 改成你训练时的实际值，将 THUDM/chatglm-6b 改成本地的模型路径。
 这里使用ptuning 文件夹下的 web_demo.sh 部署
+
 PRE_SEQ_LEN=32
 CUDA_VISIBLE_DEVICES=0 python web_demo.py \
     --model_name_or_path C:\\chatglm-6b \

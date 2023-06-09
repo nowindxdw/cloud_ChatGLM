@@ -22,22 +22,22 @@ GPU机型 T4 显卡
 
 
 连接后操作：
-1.安装GPU驱动：
+### 1.安装GPU驱动：
 https://www.nvidia.com/Download/Find.aspx
 找到 T4 对应的驱动12.0
-2.安装 CUDA：
+### 2.安装 CUDA：
 https://developer.nvidia.com/cuda-downloads
 然后再下载 cudnn, 找到和 cuda配套的
 https://developer.nvidia.com/rdp/cudnn-download
-3.安装 anaconda，python环境
+### 3.安装 anaconda，python环境
 https://www.anaconda.com/blog/individual-edition-2021-05
 安装  Anaconda For Windows Server 2022
-4. 安装 pytorch
+### 4. 安装 pytorch
 (注意不要使用清华源，默认是CPU版本)：
 https://pytorch.org/get-started/locally/
 conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 
-5 部署 ChatGLM-6B
+### 5 部署 ChatGLM-6B
 下载项目程序包
 从 GitHub 下载项目程序包，https://github.com/THUDM/ChatGLM-6B
 下载后解压到本地目录，如 C:\ChatGLM\ChatGLM-6B-main
@@ -46,19 +46,19 @@ huggingface 里不能打包下载，只能一个个下载（因为没有找到�
 8 个模型文件（1G 以上的那 8 个）不用在 huggingface 里下载，从这里下载：https://cloud.tsinghua.edu.cn/d/fb9f16d6dc8f482596c2/
 
 
-6 运行网页版 Demo
+### 6 运行网页版 Demo
 pip install -r .\requirements.txt   -i https://pypi.tuna.tsinghua.edu.cn/simple
 修改模型路径，编辑 web_demo.py，修改路径为模型包保存的目录
+
 model_path= "C:\\chatglm-6b"
-# tokenizer = AutoTokenizer.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True)
 tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
-# model = AutoModel.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True).half().cuda()
 model = AutoModel.from_pretrained(model_path, trust_remote_code=True).half().cuda()
 model = model.eval()
+
 执行如下命令，运行网页版本的 demo，如下
 python web_demo.py
 
-7.保存镜像
+### 7.保存镜像
 这个 GPU 云服务器的方案是按时间计费的，服务器空闲时间也是计费的，即使关机也不会停止计费。如要停止计费，必须将服务器和云盘都销毁。一旦销毁后，下次还想再使用 ChatGLM 就只能重复以上繁琐的步骤，至少需要 2 个小时。
 因此，我们可以利用腾讯提供的 80G 免费快照空间。
 当不再需要运行 ChatGLM 时，可以将当前的服务器和云盘保存为镜像和快照，然后销毁相应资源。
